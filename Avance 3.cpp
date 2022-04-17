@@ -14,8 +14,7 @@ int main() {
 	ListaVentas citas[5];
 	bool menu = true, paciente = true;
 	float preciotrat = 0, precio = 0, preciototal = 0, IVA = 0;
-	//char nombre[40] = "", tratamiento[100] = "", hora[10] = "", Ntratamiento[100] = "";
-	string nombre, tratamiento, hora, Ntratamiento;  // string funciona igual que char en el sentido que ambos considera un espacio como salto de linea pero string permite usar comandos para evitar eso 
+	string nombre, tratamiento, hora, Ntratamiento;  
 	int opcion = 0, CT = 0, num = 0, i, cita, op2;
 	cout << "\t\t\t\t\tBienvenido a su clinica dentista" << endl;
 	while (menu) {
@@ -158,7 +157,6 @@ int main() {
 			break;
 
 		case 4:
-			//Muestra los valores actualizados
 			for (i = 0; i < 5; i++)
 			{
 				cout << "La cita que fue ingresada en la posicion" << i + 1 << endl;
@@ -172,7 +170,7 @@ int main() {
 				cout << "Total(Pesos mexicanos):" << endl;
 				cout << citas[i].preciototal << endl;
 				system("pause");
-				system("cls"); // limpiar pantalla
+				system("cls");
 			}
 			break;
 
