@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iostream>
 #include <string>
 #include <stdlib.h>
 #include <string.h>
@@ -8,6 +9,12 @@ using namespace std;
 
 void lectura();
 void escribir();
+
+ListaVentas citas[5];
+bool menu = true, paciente = true;
+float preciotrat = 0,preciototal = 0, IVA = 0;
+string nombre, tratamiento, hora, Ntratamiento;
+int opcion = 0, CT = 0, num = 0, i, cita, op2;
 
 struct ListaVentas
 {
@@ -19,8 +26,8 @@ int main() {
 
 	ListaVentas citas[5];
 	bool menu = true, paciente = true;
-	float preciotrat = 0, precio = 0, preciototal = 0, IVA = 0;
-	string nombre, tratamiento, hora, Ntratamiento; 
+	float preciotrat = 0, preciototal = 0, IVA = 0;
+	string nombre, tratamiento, hora, Ntratamiento;
 	int opcion = 0, CT = 0, num = 0, i, cita, op2;
 
 	cout << "\t\t\t\t\tBienvenido a su clinica dentista" << endl;
@@ -54,10 +61,8 @@ int main() {
 					cin >> citas[i].preciotrat;
 					cout << i + 1 << "\tCantidad del tratamiento:";
 					cin >> citas[i].CT;
-					cout << i + 1 << "\tPrecio unitario:";
-					cin >> citas[i].precio;
 					cout << i + 1 << "\t" << "Total(Pesos mexicanos, IVA incluido):";
-					citas[i].preciototal = citas[i].precio + citas[i].preciotrat;
+					citas[i].preciototal = citas[i].CT * citas[i].preciotrat;
 					IVA = citas[i].preciototal * .16;
 					citas[i].preciototal += IVA;
 					cout << citas[i].preciototal << endl;
@@ -116,11 +121,6 @@ int main() {
 					cout << "Ingrese el nuevo valor:";
 					cin >> citas[i].CT;
 					break;
-				case 7:
-					cout << "Precio unitario:" << citas[i].precio << endl;
-					cout << "Ingrese el nuevo valor:";
-					cin >> citas[i].precio;
-					break;
 				default:
 					cout << "No se ingreso una opcion correcta" << endl;
 					system("pause");
@@ -138,7 +138,6 @@ int main() {
 				cout << "Descripcion del tratamiento:" << citas[i].tratamiento << endl;
 				cout << "Precio unitario del tratamiento:" << citas[i].preciotrat << endl;
 				cout << "Cantidad del tratamiento:" << citas[i].CT << endl;
-				cout << "Precio unitario:" << citas[i].precio << endl;
 				cout << "Total(Pesos mexicanos):" << endl;
 				cout << citas[i].preciototal << endl;
 				cout << "La cita a sido modificada exitosamente";
@@ -159,7 +158,6 @@ int main() {
 				citas[i].tratamiento = "";
 				citas[i].preciotrat = 0;
 				citas[i].CT = 0;
-				citas[i].precio = 0;
 				citas[i].preciototal = 0;
 			}
 			cout << "La cita se borro exitosamente" << endl;
@@ -177,7 +175,6 @@ int main() {
 				cout << "Descripcion del tratamiento:" << citas[i].tratamiento << endl;
 				cout << "Precio unitario del tratamiento:" << citas[i].preciotrat << endl;
 				cout << "Cantidad del tratamiento:" << citas[i].CT << endl;
-				cout << "Precio unitario:" << citas[i].precio << endl;
 				cout << "Total(Pesos mexicanos):" << endl;
 				cout << citas[i].preciototal << endl;
 				system("pause");
@@ -201,7 +198,7 @@ int main() {
 			cout << "No se ingreso una opcion correcta" << endl;
 			system("pause");
 			break;
-	
+
 		}
 	}
 }
