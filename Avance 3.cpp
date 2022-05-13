@@ -7,14 +7,6 @@
 
 using namespace std;
 
-void alta();
-void modificar();
-void eliminar();
-void mostrar();
-void lectura();
-void escribir();
-
-
 struct ListaVentas
 {
 	string nombre, tratamiento, hora, Ntratamiento;
@@ -22,17 +14,28 @@ struct ListaVentas
 	int CT = 0;
 };
 
+void alta();
+void modificar();
+void eliminar();
+int mostrar();
+void lectura();
+void escribir();
+void escribirauto();
+
+ListaVentas citas[5];
+bool paciente = true;
+float IVA = 0;
+
 int main() {
-	ListaVentas citas[5];
-	bool menu = true, paciente = true;
-	float preciotrat = 0, preciototal = 0, IVA = 0;
+	bool menu = true;
+	float preciotrat = 0, preciototal = 0;
 	string nombre, tratamiento, hora, Ntratamiento;
 	int opcion = 0, CT = 0, num = 0, i, cita, op2;
 	cout << "\t\t\t\t\tBienvenido a su clinica dentista" << endl;
 	while (menu) {
 
 		cout << "Ingrese 1 para Agendar una cita\n \t2 para Modificar una cita\n \t3 para Eliminar una cita\n \t4 para revisar la lista de citas vigentes" << endl;
-		cout << "\t5 para limpiar la pantalla\n \t6 para agregar un archivo\n \t7 para leer un archivo creado\n \t0 para salir" << endl;
+		cout << "\t5 para limpiar la pantalla\n \t6 para que el proceso se archive\n \t7 para leer el archivo\n \t0 para salir" << endl;
 		cin >> opcion;
 
 		switch (opcion)
@@ -64,7 +67,6 @@ int main() {
 			system("cls");
 			break;
 		case 6:
-			cout << "Favor de nombrar el archivo\t\t clinica.txt\n";
 			escribir();
 			system("cls");
 			break;
@@ -81,10 +83,6 @@ int main() {
 	}
 }
 void alta() {
-	ListaVentas citas[5];
-	bool menu = true, paciente = true;
-	float preciotrat = 0, preciototal = 0, IVA = 0;
-	string nombre, tratamiento, hora, Ntratamiento;
 	int opcion = 0, CT = 0, num = 0, i, cita, op2;
 
 	while (paciente) {
@@ -113,22 +111,19 @@ void alta() {
 			cout << citas[i].preciototal << endl;
 			cout << "para agregar otra cita ingrese un numero, para regresar al menu ingrese 6" << endl;
 			cin >> num;
+			escribirauto();
 
 			if (num == 6)
 			{
 				i = 5;
-				paciente = false;
+				paciente = true;
 			}
 		}
 		break;
 	}
 }
 void modificar() {
-	ListaVentas citas[5];
-	bool menu = true, paciente = true;
-	float preciotrat = 0, preciototal = 0, IVA = 0;
-	string nombre, tratamiento, hora, Ntratamiento;
-	int opcion = 0, CT = 0, num = 0, i, cita, op2;
+	int cita=0, op2=0, i=0;
 
 	cout << "Ingrese el numero de la cita que desee modificar" << endl;
 	cin >> cita;
@@ -197,11 +192,7 @@ void modificar() {
 	}
 }
 void eliminar() {
-	ListaVentas citas[5];
-	bool menu = true, paciente = true;
-	float preciotrat = 0, preciototal = 0, IVA = 0;
-	string nombre, tratamiento, hora, Ntratamiento;
-	int opcion = 0, CT = 0, num = 0, i, cita, op2;
+	int cita=0, i = 0;
 	cout << "Ingrese el numero de la cita que desee eliminar" << endl;
 	cin >> cita;
 	cita = cita - 1;
@@ -222,11 +213,9 @@ void eliminar() {
 void escribir() {
 	ofstream archivo;
 	string nombrearchivo, texto;
+	int main();
 
-	cout << "ingrese el nombre del archivo que desea generar" << endl;
-	cin.ignore();
-	getline(cin, nombrearchivo);
-
+	nombrearchivo = "clinica.txt";
 	archivo.open(nombrearchivo.c_str(), ios::out);
 
 	if (archivo.fail())
@@ -235,18 +224,12 @@ void escribir() {
 		exit(1);
 	}
 
-	cout << "Ingrese el texto en el archivo" << endl;
-	getline(cin, texto);
-	archivo << texto;
+	archivo << main();
 
 	archivo.close();
 }
-void mostrar() {
-	ListaVentas citas[5];
-	bool menu = true, paciente = true;
-	float preciotrat = 0, preciototal = 0, IVA = 0;
-	string nombre, tratamiento, hora, Ntratamiento;
-	int opcion = 0, CT = 0, num = 0, i, cita, op2;
+int mostrar() {
+	int i = 0;
 	for (i = 0; i < 5; i++)
 	{
 		cout << "La cita que fue ingresada en la posicion" << i + 1 << endl;
@@ -261,11 +244,12 @@ void mostrar() {
 		system("pause");
 		system("cls");
 	}
+	return main();
 }
 void lectura() {
 	string texto;
 	ifstream archivo;
-	archivo.open("clinica.txt", ios::in);
+	archivo.open("clinica2.txt", ios::in);
 	if (archivo.fail())
 	{
 		cout << "EL ARCHIVO NO EXISTE" << endl;
@@ -275,8 +259,25 @@ void lectura() {
 	while (!archivo.eof())
 	{
 		getline(archivo, texto);
-		cout << texto << endl;
+		cout << mostrar() << endl;
 		system("pause");
 	}
+	archivo.close();
+}
+void escribirauto() {
+	ofstream archivo;
+	string nombrearchivo;
+
+	nombrearchivo = "clinica2.txt";
+	archivo.open(nombrearchivo.c_str(), ios::out);
+
+	if (archivo.fail())
+	{
+		cout << "ERROR NO SE PUDO CREAR";
+		exit(1);
+	}
+
+	archivo << citas;
+
 	archivo.close();
 }
