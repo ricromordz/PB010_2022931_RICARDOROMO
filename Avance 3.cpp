@@ -11,7 +11,7 @@ struct ListaVentas
 {
 	string nombre, tratamiento, hora, Ntratamiento;
 	float preciotrat = 0, precio = 0, preciototal = 0;
-	int CT = 0;
+	int CT = 0,h = 00, m = 00;
 };
 
 void alta();
@@ -83,22 +83,30 @@ int main() {
 	}
 }
 void alta() {
-	int opcion = 0, CT = 0, num = 0, i, cita, op2;
+	int opcion = 0, CT = 0, num = 0, i, cita, op2 = 0;
 
 	while (paciente) {
 		for (i = 0; i < 5; i++)
 		{
-			cout << i + 1 << "\tNombre de paciente :";
+			cout << i + 1 << "\tNombre de paciente:";
 			cin.ignore();
 			getline(cin, citas[i].nombre);
-			cout << i + 1 << "\tHora del tratamiento:";
-			cin.ignore();
-			getline(cin, citas[i].hora);
+			cout << i + 1 << "\tHora del tratamiento(0-24hr):";
+			cin >> citas[i].h;
+			cout << i + 1 << "\tMinutos:";
+			cin >> citas[i].m;
+			if (citas[i].h <= 24 && citas[i].h >= 0 && citas[i].m <=60 && citas[i].m >=0)
+			{
+				cout << "        La hora es valida: " << citas[i].h << ":" << citas[i].m << endl;
+			}
+			else {
+				cout << "La hora no es valida";
+			}
 			cout << i + 1 << "\tNombre del tratamiento:";
 			cin.ignore();
 			getline(cin, citas[i].Ntratamiento);
 			cout << i + 1 << "\tDescripcion del tratamiento:";
-			cin.ignore();
+
 			getline(cin, citas[i].tratamiento);
 			cout << i + 1 << "\tPrecio unitario del tratamiento:";
 			cin >> citas[i].preciotrat;
@@ -140,10 +148,11 @@ void modificar() {
 			getline(cin, citas[i].nombre);
 			break;
 		case 2:
-			cout << "Hora del tratamiento:" << citas[i].hora << endl;
-			cout << "Ingrese el nuevo valor:";
-			cin.ignore();
-			getline(cin, citas[i].hora);
+			cout << "Hora del tratamiento:" << citas[i].h << ":" << citas[i].m << endl;
+			cout << "Ingrese la nuevo hora:";
+			cin >> citas[i].h;
+			cout << "Ingrese los nuevos minutos:";
+			cin >> citas[i].m;
 			break;
 		case 3:
 			cout << "Nombre del tratamiento:" << citas[i].Ntratamiento << endl;
@@ -179,7 +188,7 @@ void modificar() {
 		cout << citas[i].preciototal << endl;
 		system("cls");
 		cout << "Nombre de paciente: " << citas[i].nombre << endl;
-		cout << "Hora del tratamiento:" << citas[i].hora << endl;
+		cout << "Hora del tratamiento:" << citas[i].h << ":" << citas[i].m << endl;
 		cout << "Nombre del tratamiento:" << citas[i].Ntratamiento << endl;
 		cout << "Descripcion del tratamiento:" << citas[i].tratamiento << endl;
 		cout << "Precio unitario del tratamiento:" << citas[i].preciotrat << endl;
@@ -233,14 +242,13 @@ int mostrar() {
 	for (i = 0; i < 5; i++)
 	{
 		cout << "La cita que fue ingresada en la posicion" << i + 1 << endl;
-		cout << "Nombre de paciente: " << citas[i].nombre << endl;
-		cout << "Hora del tratamiento:" << citas[i].hora << endl;
+		cout << "Nombre de paciente:" << citas[i].nombre << endl;
+		cout << "Hora del tratamiento:" << citas[i].h << ":" << citas[i].m << endl;
 		cout << "Nombre del tratamiento:" << citas[i].Ntratamiento << endl;
 		cout << "Descripcion del tratamiento:" << citas[i].tratamiento << endl;
 		cout << "Precio unitario del tratamiento:" << citas[i].preciotrat << endl;
 		cout << "Cantidad del tratamiento:" << citas[i].CT << endl;
-		cout << "Total(Pesos mexicanos):" << endl;
-		cout << citas[i].preciototal << endl;
+		cout << "Total(Pesos mexicanos):" << citas[i].preciototal << endl;
 		system("pause");
 		system("cls");
 	}
