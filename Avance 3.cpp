@@ -35,7 +35,7 @@ int main() {
 	while (menu) {
 
 		cout << "Ingrese 1 para Agendar una cita\n \t2 para Modificar una cita\n \t3 para Eliminar una cita\n \t4 para revisar la lista de citas vigentes" << endl;
-		cout << "\t5 para limpiar la pantalla\n \t6 para que el proceso se archive\n \t7 para leer el archivo\n \t0 para salir" << endl;
+		cout << "\t5 para limpiar la pantalla\n \t6 para leer el archivo\n \t0 para salir" << endl;
 		cin >> opcion;
 
 		switch (opcion)
@@ -67,10 +67,6 @@ int main() {
 			system("cls");
 			break;
 		case 6:
-			escribir();
-			system("cls");
-			break;
-		case 7:
 			lectura();
 			system("cls");
 			break;
@@ -218,24 +214,6 @@ void eliminar() {
 	cout << "La cita se borro exitosamente" << endl;
 	system("pause");
 	system("cls");
-}
-void escribir() {
-	ofstream archivo;
-	string nombrearchivo, texto;
-	int main();
-
-	nombrearchivo = "clinica.txt";
-	archivo.open(nombrearchivo.c_str(), ios::out);
-
-	if (archivo.fail())
-	{
-		cout << "ERROR NO SE PUDO CREAR";
-		exit(1);
-	}
-
-	archivo << main();
-
-	archivo.close();
 }
 int mostrar() {
 	int i = 0;
