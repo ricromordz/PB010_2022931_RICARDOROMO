@@ -11,7 +11,7 @@ struct ListaVentas
 {
 	string nombre, tratamiento, hora, Ntratamiento;
 	float preciotrat = 0, precio = 0, preciototal = 0;
-	int CT = 0,h = 00, m = 00;
+	int CT = 0, h = 00, m = 00;
 };
 
 void alta();
@@ -19,7 +19,6 @@ void modificar();
 void eliminar();
 int mostrar();
 void lectura();
-void escribir();
 void escribirauto();
 
 ListaVentas citas[5];
@@ -30,7 +29,7 @@ int main() {
 	bool menu = true;
 	float preciotrat = 0, preciototal = 0;
 	string nombre, tratamiento, hora, Ntratamiento;
-	int opcion = 0, CT = 0, num = 0, i, cita, op2;
+	int opcion = 0, CT = 0, num = 0, i = 0, cita = 0, op2 = 0;
 	cout << "\t\t\t\t\tBienvenido a su clinica dentista" << endl;
 	while (menu) {
 
@@ -91,7 +90,7 @@ void alta() {
 			cin >> citas[i].h;
 			cout << i + 1 << "\tMinutos:";
 			cin >> citas[i].m;
-			if (citas[i].h <= 24 && citas[i].h >= 0 && citas[i].m <=60 && citas[i].m >=0)
+			if (citas[i].h <= 24 && citas[i].h >= 0 && citas[i].m <= 60 && citas[i].m >= 0)
 			{
 				cout << "        La hora es valida: " << citas[i].h << ":" << citas[i].m << endl;
 			}
@@ -127,7 +126,7 @@ void alta() {
 	}
 }
 void modificar() {
-	int cita=0, op2=0, i=0;
+	int cita = 0, op2 = 0, i = 0;
 
 	cout << "Ingrese el numero de la cita que desee modificar" << endl;
 	cin >> cita;
@@ -197,7 +196,7 @@ void modificar() {
 	}
 }
 void eliminar() {
-	int cita=0, i = 0;
+	int cita = 0, i = 0;
 	cout << "Ingrese el numero de la cita que desee eliminar" << endl;
 	cin >> cita;
 	cita = cita - 1;
@@ -235,7 +234,7 @@ int mostrar() {
 void lectura() {
 	string texto;
 	ifstream archivo;
-	archivo.open("clinica2.txt", ios::in);
+	archivo.open("clinica.txt", ios::in);
 	if (archivo.fail())
 	{
 		cout << "EL ARCHIVO NO EXISTE" << endl;
@@ -251,10 +250,11 @@ void lectura() {
 	archivo.close();
 }
 void escribirauto() {
+	int i = 0;
 	ofstream archivo;
 	string nombrearchivo;
 
-	nombrearchivo = "clinica2.txt";
+	nombrearchivo = "clinica.txt";
 	archivo.open(nombrearchivo.c_str(), ios::out);
 
 	if (archivo.fail())
@@ -262,8 +262,17 @@ void escribirauto() {
 		cout << "ERROR NO SE PUDO CREAR";
 		exit(1);
 	}
-
-	archivo << citas;
+	for (size_t i = 0; i < 5; i++)
+	{
+		archivo << "La cita que fue ingresada en la posicion   " << i + 1 << endl << "Nombre de paciente:" << citas[i].nombre << endl
+			<< "Hora del tratamiento:" << citas[i].h << ":" << citas[i].m << endl
+			<< "Nombre del tratamiento:" << citas[i].Ntratamiento << endl
+			<< "Descripcion del tratamiento:" << citas[i].tratamiento << endl
+			<< "Precio unitario del tratamiento:" << citas[i].preciotrat << endl
+			<< "Cantidad del tratamiento:" << citas[i].CT << endl
+			<< "Total(Pesos mexicanos):" << citas[i].preciototal << endl;
+		system("cls");
+	}
 
 	archivo.close();
 }
